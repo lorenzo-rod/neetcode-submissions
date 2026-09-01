@@ -1,0 +1,20 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        permutations = []
+
+        def backtrack(permutation, visited):
+            if len(permutation) == n:
+                permutations.append(permutation[:])
+            
+            for i in range(n):
+                if nums[i] not in visited:
+                    visited.add(nums[i])
+                    permutation.append(nums[i])
+                    backtrack(permutation, visited)
+                    permutation.pop()
+                    visited.discard(nums[i])
+        
+        backtrack([], set())
+
+        return permutations
